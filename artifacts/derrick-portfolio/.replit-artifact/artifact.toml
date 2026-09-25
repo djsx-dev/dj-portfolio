@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Derrick Diaz Portfolio"
+description = "A polished personal portfolio for Derrick Jon Diaz, presenting his IT background, skills, projects, experience, and contact options through an interactive digital workspace."
+version = "1.0.0"
+id = "artifacts/derrick-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18344
+
+[services.development]
+run = "pnpm --filter @workspace/derrick-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/derrick-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/derrick-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18344"
+BASE_PATH = "/"
